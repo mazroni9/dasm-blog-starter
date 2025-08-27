@@ -1,5 +1,4 @@
-import { getAllPosts } from "@/lib/posts";
-
+import { getAllPosts } from "../lib/posts";
 export default async function HomePage() {
   const posts = await getAllPosts();
   return (
