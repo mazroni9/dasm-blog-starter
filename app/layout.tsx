@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export const metadata = {
   title: "مدونة DASM-e",
-  description: "منصة مزادات رقمية تفاعلية مبتكرة"
+  description: "أخبار المنصة، التعريفات، المقالات التقنية"
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -16,8 +16,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Link href="/" className="font-bold text-lg text-brand-600">
               DASM-e Blog
             </Link>
-            <div className="text-sm text-slate-600">
-              <Link href="/" className="hover:text-brand-600">الرئيسية</Link>
+            <div className="flex gap-6 text-sm text-slate-600">
+              <Link href="/" className="hover:text-brand-600">
+                الرئيسية
+              </Link>
+              <Link href="/about" className="hover:text-brand-600">
+                عن المنصة
+              </Link>
             </div>
           </nav>
         </header>
