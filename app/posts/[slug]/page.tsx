@@ -1,15 +1,22 @@
 // app/posts/[slug]/page.tsx
 import { getAllPosts, getPostBySlug } from "@/lib/posts";
 
-type Props = { params: { slug: string } };
+// Next.js 15: params هو Promise ويحتاج await
+type PageProps = {
+  params: Promise<{ slug: string }>;
+};
 
 export async function generateStaticParams() {
   const posts = await getAllPosts();
   return posts.map((p) => ({ slug: p.slug }));
 }
 
-export default async function PostPage({ params }: Props) {
-  const post = await getPostBySlug(params.slug);
+// (اختياري) لو تبغى SSG مع إعادة توليد
+export const revalidate = 60; // ثواني
+
+export default async function PostPage({ params }: PageProps) {
+  const { slug } = await params; // ✅ نفك الـ Promise
+  const post = await getPostBySlug(slug);
 
   if (!post) {
     return (
