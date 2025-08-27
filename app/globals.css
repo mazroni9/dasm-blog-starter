@@ -1,53 +1,22 @@
-/* app/globals.css */
-
-/* استدعاء أوامر Tailwind الأساسية */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* استيراد خط عربي من Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap');
-
-/* تطبيق الخط العربي */
-html, body {
-  font-family: 'Tajawal', sans-serif;
-  background-color: #ffffff;
-  color: #222;
-  direction: rtl;   /* لأن المدونة بالعربي */
-}
-
-/* تحسين الصور داخل المقالات */
-.prose :where(img) {
-  margin-inline: auto;
-  border-radius: 0.5rem; /* زوايا ناعمة */
-  max-height: 500px;
-  object-fit: cover;
-}
-
-/* تحسين الروابط */
-.prose a {
-  color: #0070f3;
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.prose a:hover {
-  text-decoration: underline;
-}
-
-/* تحسين العناوين */
-.prose h1, 
-.prose h2, 
-.prose h3, 
-.prose h4 {
-  font-weight: 700;
-  color: #111827;
-  margin-top: 1.5rem;
-  margin-bottom: 1rem;
-}
-
-/* الفقرات */
-.prose p {
-  line-height: 1.8;
-  margin-bottom: 1rem;
+/* تحسين شكل مقالات الـ prose */
+.prose {
+  --tw-prose-body: #111827;
+  --tw-prose-headings: #0f172a;
+  --tw-prose-links: #1f6feb;
+  --tw-prose-bold: #0f172a;
+  --tw-prose-counters: #6b7280;
+  --tw-prose-bullets: #d1d5db;
+  --tw-prose-hr: #e5e7eb;
+  --tw-prose-quotes: #111827;
+  --tw-prose-quote-borders: #e5e7eb;
+  --tw-prose-captions: #6b7280;
+  --tw-prose-code: #0f172a;
+  --tw-prose-pre-code: #e5e7eb;
+  --tw-prose-pre-bg: #0b1220;
+  --tw-prose-th-borders: #e5e7eb;
+  --tw-prose-td-borders: #e5e7eb;
 }
