@@ -1,7 +1,7 @@
 // app/posts/[slug]/page.tsx
 import { getAllPosts, getPostBySlug, type Post as SourcePost } from "@/lib/posts";
 
-// نفس دالة التطبيع المستخدمة في الصفحة الرئيسية
+// نفس دالة تطبيع التاريخ المستخدمة في الصفحة الرئيسية
 function toDateString(value: SourcePost["date"]): string | undefined {
   if (!value) return undefined;
   try {
@@ -17,8 +17,10 @@ export async function generateStaticParams() {
   return posts.map((p) => ({ slug: p.slug }));
 }
 
-export default async function PostPage({ params }: { params: { slug: string } }) {
-  const { meta, content } = await getPostBySlug(params.slug);
+// ✅ لاحظ: params صار Promise — نفكّه بـ await
+export default async function PostPage(props: { params: Promise<{ slug: string }> }) {
+  const { slug } = await props.params;
+  const { meta, content } = await getPostBySlug(slug);
   const dateStr = toDateString(meta.date);
 
   return (
@@ -27,7 +29,7 @@ export default async function PostPage({ params }: { params: { slug: string } })
       {dateStr && <p className="text-sm text-slate-500 mt-1">{dateStr}</p>}
       {meta.excerpt && <p className="text-slate-700 mt-4">{meta.excerpt}</p>}
 
-      {/* إذا عندك Markdown renderer (مثلاً MDX أو مكوّن خاص)، استبدل هذا الـ <pre> */}
+      {/* ✍️ إذا عندك Markdown/MDX renderer استبدل التالية بالمكوّن المناسب */}
       <div className="mt-8">
         <pre className="whitespace-pre-wrap break-words">{content}</pre>
       </div>
