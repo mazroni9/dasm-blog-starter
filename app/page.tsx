@@ -6,9 +6,12 @@ export default async function Page() {
   const posts = await getAllPosts();
 
   return (
-    <main className="max-w-3xl mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-6">المدونة</h1>
+    <>
+      <h1 className="text-3xl font-bold mb-2">المدونة</h1>
+      <p className="text-slate-600 mb-8">
+        مقالات تقنية وتشغيلية حول DASM-e ومنتجاتنا الفرعية.
+      </p>
       <PostList posts={posts} />
-    </main>
+    </>
   );
 }
