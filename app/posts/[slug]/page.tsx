@@ -1,58 +1,36 @@
 // app/posts/[slug]/page.tsx
-import Link from "next/link";
-import { getAllPosts, getPostBySlug } from "@/lib/posts";
+import { getAllPosts, getPostBySlug, type Post as SourcePost } from "@/lib/posts";
 
-type PageProps = { params: Promise<{ slug: string }> };
+// نفس دالة التطبيع المستخدمة في الصفحة الرئيسية
+function toDateString(value: SourcePost["date"]): string | undefined {
+  if (!value) return undefined;
+  try {
+    if (typeof value === "string") return value;
+    if (typeof value === "number") return new Date(value).toISOString().slice(0, 10);
+    if (value instanceof Date) return value.toISOString().slice(0, 10);
+  } catch {}
+  return undefined;
+}
 
 export async function generateStaticParams() {
   const posts = await getAllPosts();
   return posts.map((p) => ({ slug: p.slug }));
 }
 
-export const revalidate = 300;
-
-export default async function PostPage({ params }: PageProps) {
-  const { slug } = await params;
-  const post = await getPostBySlug(slug);
-
-  if (!post) {
-    return (
-      <main className="max-w-3xl mx-auto p-6">
-        <h1 className="text-xl font-bold">لم يتم العثور على المقال</h1>
-        <div className="mt-6">
-          <Link
-            href="/"
-            className="inline-block px-4 py-2 rounded-lg bg-brand-600 text-white hover:bg-brand-500"
-          >
-            ← العودة للرئيسية
-          </Link>
-        </div>
-      </main>
-    );
-  }
+export default async function PostPage({ params }: { params: { slug: string } }) {
+  const { meta, content } = await getPostBySlug(params.slug);
+  const dateStr = toDateString(meta.date);
 
   return (
-    <article className="max-w-3xl mx-auto p-6">
-      {/* زر العودة */}
-      <div className="mb-6">
-        <Link
-          href="/"
-          className="inline-block px-4 py-2 rounded-lg bg-brand-600 text-white hover:bg-brand-500"
-        >
-          ← العودة للرئيسية
-        </Link>
+    <article className="prose max-w-3xl mx-auto py-8">
+      <h1 className="text-3xl font-bold">{meta.title}</h1>
+      {dateStr && <p className="text-sm text-slate-500 mt-1">{dateStr}</p>}
+      {meta.excerpt && <p className="text-slate-700 mt-4">{meta.excerpt}</p>}
+
+      {/* إذا عندك Markdown renderer (مثلاً MDX أو مكوّن خاص)، استبدل هذا الـ <pre> */}
+      <div className="mt-8">
+        <pre className="whitespace-pre-wrap break-words">{content}</pre>
       </div>
-
-      <h1 className="text-3xl font-bold">{post.title}</h1>
-      {post.date && <p className="text-sm text-slate-500 mt-1">{post.date}</p>}
-      {post.excerpt && <p className="text-slate-700 mt-4">{post.excerpt}</p>}
-
-      {post.content && (
-        <div
-          className="prose prose-slate mt-8 max-w-none"
-          dangerouslySetInnerHTML={{ __html: post.content }}
-        />
-      )}
     </article>
   );
 }
