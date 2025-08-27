@@ -1,16 +1,30 @@
-import { getAllPosts } from "../lib/posts";
+// app/page.tsx
+import { getAllPosts } from "./lib/posts";
+import BlogShell from "../components/BlogShell";
+
 export default async function HomePage() {
   const posts = await getAllPosts();
+
+  const first = posts[0]; // أول مقالة كافتراضي
   return (
-    <main>
-      <ul className="space-y-6">
-        {posts.map((p) => (
-          <li key={p.slug} className="border-b pb-4">
-            <a className="text-xl font-semibold hover:underline" href={`/posts/${p.slug}`}>{p.title}</a>
-            <div className="text-xs text-gray-500 mt-1">{new Date(p.date).toLocaleDateString("ar-SA")}</div>
-          </li>
-        ))}
-      </ul>
-    </main>
+    <BlogShell
+      posts={posts.map(p => ({ slug: p.slug, title: p.title, date: p.date }))}
+      activeSlug={first?.slug}
+      sidebarOn="right" // أو "left"
+      title="مدونة داسم"
+      subtitle="أخبار المنصة، التحديثات، المقالات التقنية"
+    >
+      {first ? (
+        <article className="prose prose-slate max-w-none prose-headings:font-bold prose-p:leading-8">
+          <h2 className="text-2xl font-bold mb-2">{first.title}</h2>
+          <div className="text-xs text-gray-500 mb-4">
+            {new Date(first.date).toLocaleDateString("ar-SA")}
+          </div>
+          <div dangerouslySetInnerHTML={{ __html: first.html }} />
+        </article>
+      ) : (
+        <p>لا توجد مقالات حتى الآن.</p>
+      )}
+    </BlogShell>
   );
 }
