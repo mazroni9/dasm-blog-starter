@@ -1,49 +1,25 @@
-// lib/posts.ts
-import fs from "node:fs";
-import path from "node:path";
-import matter from "gray-matter";
-import { remark } from "remark";
-import html from "remark-html";
-import type { Post } from "@/app/components/PostList";
+// lib/posts.ts (أو ملف مماثل)
+export type Post = {
+  title: string;
+  slug: string;
+  date?: string | Date | number | null;
+  [k: string]: any;
+};
 
-const POSTS_DIR = path.join(process.cwd(), "content", "posts");
-
-export async function getAllPosts(): Promise<Post[]> {
-  if (!fs.existsSync(POSTS_DIR)) return [];
-  const files = fs.readdirSync(POSTS_DIR).filter((f) => f.endsWith(".md"));
-
-  const posts = files.map((filename) => {
-    const slug = filename.replace(/\.md$/, "");
-    const filePath = path.join(POSTS_DIR, filename);
-    const file = fs.readFileSync(filePath, "utf8");
-    const { data, content } = matter(file);
-
-    return {
-      slug,
-      title: (data.title as string) ?? slug,
-      date: (data.date as string) ?? undefined,
-      excerpt: (data.excerpt as string) ?? content.slice(0, 140) + "…"
-    } as Post;
-  });
-
-  // الأحدث أولاً لو فيه تواريخ
-  return posts.sort((a, b) => (b.date ?? "").localeCompare(a.date ?? ""));
+// دالة توحيد التاريخ لأي نوع (string/Date/number) وترجعه كـ number للفرز
+function toTime(value: Post["date"]): number {
+  if (!value) return 0;
+  try {
+    if (value instanceof Date) return value.getTime();
+    if (typeof value === "number") return value; // يفترض أنه timestamp
+    // لو سترينغ: نحاول parse
+    const t = Date.parse(value);
+    return Number.isNaN(t) ? 0 : t;
+  } catch {
+    return 0;
+  }
 }
 
-export async function getPostBySlug(slug: string) {
-  const filePath = path.join(POSTS_DIR, `${slug}.md`);
-  if (!fs.existsSync(filePath)) return null;
-
-  const file = fs.readFileSync(filePath, "utf8");
-  const { data, content } = matter(file);
-  const processed = await remark().use(html).process(content);
-  const contentHtml = processed.toString();
-
-  return {
-    slug,
-    title: (data.title as string) ?? slug,
-    date: (data.date as string) ?? undefined,
-    excerpt: (data.excerpt as string) ?? undefined,
-    content: contentHtml
-  };
+export function sortPostsByDateDesc(posts: Post[]): Post[] {
+  return [...posts].sort((a, b) => toTime(b.date) - toTime(a.date));
 }
