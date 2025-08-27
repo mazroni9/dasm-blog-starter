@@ -1,7 +1,7 @@
 // app/page.tsx
 import { Metadata } from "next";
 import PostList from "@/app/components/PostList";
-import { getAllPosts, type PostMeta } from "@/lib/posts";
+import { getAllPosts, type Post } from "@/lib/posts";
 
 export const metadata: Metadata = {
   title: "المدونة | DASM-e",
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  const posts: PostMeta[] = await getAllPosts();
+  const posts: Post[] = await getAllPosts();
 
   return (
     <section className="max-w-4xl mx-auto py-8">
