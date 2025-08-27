@@ -1,52 +1,29 @@
 // lib/posts.ts
-import fs from "fs";
-import path from "path";
-import matter from "gray-matter";
-import { marked } from "marked";
+import type { Post } from "@/app/components/PostList";
 
-const contentDir = path.join(process.cwd(), "content");
-
-export type Post = {
-  slug: string;
-  title: string;
-  date: string;
-  html: string;
-};
+const DUMMY_POSTS: (Post & { content?: string })[] = [
+  {
+    slug: "hello-world",
+    title: "أول تدوينة — Hello World",
+    date: "2025-08-28",
+    excerpt: "هذه تدوينة تجريبية لاختبار بنية المدونة.",
+    content:
+      "<p>مرحبًا بك في المدونة. هذا المحتوى تجريبي. لاحقًا نربطه بملفات Markdown.</p>",
+  },
+  {
+    slug: "second-post",
+    title: "تدوينة ثانية",
+    date: "2025-08-29",
+    excerpt: "مثال على تدوينة ثانية في النظام.",
+    content:
+      "<p>هذا مثال آخر للتأكد أن النظام يعرض أكثر من مقال.</p>",
+  },
+];
 
 export async function getAllPosts(): Promise<Post[]> {
-  const files = fs.readdirSync(contentDir).filter((f) => f.endsWith(".md"));
-  const posts: Post[] = files.map((file) => {
-    const slug = file.replace(/\.md$/, "");
-    const raw = fs.readFileSync(path.join(contentDir, file), "utf-8");
-    const { data, content } = matter(raw);
-    const html = marked.parse(content) as string;
-    return {
-      slug,
-      title: (data as any).title || slug,
-      date: (data as any).date || new Date().toISOString(),
-      html,
-    };
-  });
-  posts.sort((a, b) => (a.date < b.date ? 1 : -1));
-  return posts;
+  return DUMMY_POSTS.map(({ content, ...rest }) => rest);
 }
 
-export async function getPostBySlug(slug: string): Promise<Post> {
-  const file = path.join(contentDir, `${slug}.md`);
-  const raw = fs.readFileSync(file, "utf-8");
-  const { data, content } = matter(raw);
-  const html = marked.parse(content) as string;
-  return {
-    slug,
-    title: (data as any).title || slug,
-    date: (data as any).date || new Date().toISOString(),
-    html,
-  };
-}
-
-export async function getAllSlugs(): Promise<string[]> {
-  return fs
-    .readdirSync(contentDir)
-    .filter((f) => f.endsWith(".md"))
-    .map((f) => f.replace(/\.md$/, ""));
+export async function getPostBySlug(slug: string) {
+  return DUMMY_POSTS.find((p) => p.slug === slug);
 }
