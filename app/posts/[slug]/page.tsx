@@ -1,4 +1,4 @@
-import { getPostBySlug, getAllSlugs } from "@/lib/posts";
+import { getPostBySlug, getAllSlugs } from "../../../lib/posts";
 
 export async function generateStaticParams() {
   const slugs = await getAllSlugs();
