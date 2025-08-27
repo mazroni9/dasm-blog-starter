@@ -1,0 +1,9 @@
+/* app/globals.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* تحسين طفيف */
+.prose :where(img) {
+  margin-inline: auto;
+}
