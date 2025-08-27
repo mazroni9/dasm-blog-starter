@@ -1,26 +1,43 @@
 // app/posts/[slug]/page.tsx
-import { getAllPosts, getPostBySlug } from "../../lib/posts";
-import BlogShell from "../../../components/BlogShell";
+import { getAllPosts, getAllSlugs, getPostBySlug } from "@/lib/posts";
+import PostList from "@/app/components/PostList";
+import type { Metadata } from "next";
+
+export async function generateStaticParams() {
+  const slugs = await getAllSlugs();
+  return slugs.map((slug) => ({ slug }));
+}
+
+export async function generateMetadata(
+  { params }: { params: { slug: string } }
+): Promise<Metadata> {
+  const post = await getPostBySlug(params.slug);
+  return { title: `${post.title} | مدونة داسم` };
+}
 
 export default async function PostPage({ params }: { params: { slug: string } }) {
-  const posts = await getAllPosts();
-  const post = await getPostBySlug(params.slug);
+  const [posts, post] = await Promise.all([
+    getAllPosts(),
+    getPostBySlug(params.slug),
+  ]);
 
   return (
-    <BlogShell
-      posts={posts.map(p => ({ slug: p.slug, title: p.title, date: p.date }))}
-      activeSlug={post.slug}
-      sidebarOn="right" // أو "left"
-      title="مدونة داسم"
-      subtitle="أخبار المنصة، التحديثات، المقالات التقنية"
-    >
-      <article className="prose prose-slate max-w-none prose-headings:font-bold prose-p:leading-8">
-        <h2 className="text-2xl font-bold mb-2">{post.title}</h2>
-        <div className="text-xs text-gray-500 mb-4">
-          {new Date(post.date).toLocaleDateString("ar-SA")}
-        </div>
-        <div dangerouslySetInnerHTML={{ __html: post.html }} />
-      </article>
-    </BlogShell>
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      {/* العمود الجانبي */}
+      <div className="lg:col-span-4">
+        <PostList posts={posts} activeSlug={params.slug} />
+      </div>
+
+      {/* المقال */}
+      <div className="lg:col-span-8">
+        <article className="prose prose-slate max-w-none prose-headings:font-bold">
+          <h2 className="!mt-0">{post.title}</h2>
+          <p className="text-sm text-gray-500">
+            {new Date(post.date).toLocaleDateString("ar-SA")}
+          </p>
+          <div className="mt-6" dangerouslySetInnerHTML={{ __html: post.html }} />
+        </article>
+      </div>
+    </div>
   );
 }
