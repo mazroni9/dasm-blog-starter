@@ -10,28 +10,51 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ar" dir="rtl">
-      <body className="bg-white text-slate-900">
-        <header className="border-b bg-white/90 backdrop-blur sticky top-0 z-50">
-          <nav className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
-            <Link href="/" className="font-bold text-lg text-brand-600">
-              DASM-e Blog
-            </Link>
-            <div className="flex gap-6 text-sm text-slate-600">
-              <Link href="/" className="hover:text-brand-600">
-                الرئيسية
+      <body>
+        {/* Navigation */}
+        <nav className="nav-container sticky top-0 z-50">
+          <div className="max-w-7xl mx-auto px-4 py-4">
+            <div className="flex items-center justify-between">
+              <Link href="/" className="text-2xl font-bold text-gray-800">
+                DASM-e Blog
               </Link>
-              <Link href="/about" className="hover:text-brand-600">
-                عن المنصة
-              </Link>
+              <div className="flex gap-8 text-gray-600">
+                <Link href="/" className="nav-link hover:text-gray-900">
+                  الرئيسية
+                </Link>
+                <Link href="/about" className="nav-link hover:text-gray-900">
+                  عن المنصة
+                </Link>
+              </div>
             </div>
-          </nav>
-        </header>
+          </div>
+        </nav>
 
-        <main className="max-w-3xl mx-auto px-4 py-8">{children}</main>
+        {/* Hero Section */}
+        <section className="hero-bg">
+          <div className="hero-section">
+            <h1 className="hero-title">مدونة DASM-e</h1>
+            <p className="hero-subtitle">
+              مقالات تقنية وتشغيلية حول DASM-e ومنتجاتنا الفرعية
+            </p>
+          </div>
+        </section>
 
-        <footer className="mt-16 border-t">
-          <div className="max-w-3xl mx-auto px-4 py-8 text-sm text-slate-500">
-            © {new Date().getFullYear()} DASM-e — جميع الحقوق محفوظة.
+        {/* Main Content */}
+        <main className="max-w-7xl mx-auto px-4 py-12">
+          {children}
+        </main>
+
+        {/* Footer */}
+        <footer className="footer">
+          <div className="footer-content">
+            <h3 className="text-2xl font-bold mb-4">DASM-e</h3>
+            <p className="text-lg opacity-90">
+              منصة المزادات الرقمية الرائدة في المملكة العربية السعودية
+            </p>
+            <div className="mt-6 text-sm opacity-75">
+              © {new Date().getFullYear()} جميع الحقوق محفوظة
+            </div>
           </div>
         </footer>
       </body>
