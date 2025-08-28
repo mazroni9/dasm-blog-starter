@@ -16,7 +16,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className="max-w-7xl mx-auto px-4 py-4">
             <div className="flex items-center justify-between">
               <Link href="/" className="text-2xl font-bold text-gray-800">
-                DASM-e Blog
+                DASM Blog
               </Link>
               <div className="flex gap-8 text-gray-600">
                 <Link href="/" className="nav-link hover:text-gray-900">
@@ -33,7 +33,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Hero Section */}
         <section className="hero-bg">
           <div className="hero-section">
-            <h1 className="hero-title">مدونة DASM-e</h1>
+            <h1 className="hero-title">مدونة DASM</h1>
             <p className="hero-subtitle">
               مقالات تقنية وتشغيلية حول DASM-e ومنتجاتنا الفرعية
             </p>
@@ -48,7 +48,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Footer */}
         <footer className="footer">
           <div className="footer-content">
-            <h3 className="text-2xl font-bold mb-4">DASM-e</h3>
+            <h3 className="text-2xl font-bold mb-4">DASM</h3>
             <p className="text-lg opacity-90">
               منصة المزادات الرقمية الرائدة في المملكة العربية السعودية
             </p>

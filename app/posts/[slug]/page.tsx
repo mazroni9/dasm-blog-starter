@@ -1,6 +1,7 @@
 // app/posts/[slug]/page.tsx
 import { getAllPosts, getPostBySlug, type Post as SourcePost } from "@/lib/posts";
 import Link from "next/link";
+import Comments from "@/app/components/Comments";
 
 // نفس دالة تطبيع التاريخ المستخدمة في الصفحة الرئيسية
 function toDateString(value: SourcePost["date"]): string | undefined {
@@ -76,6 +77,9 @@ export default async function PostPage(props: { params: Promise<{ slug: string }
           </Link>
         </div>
       </div>
+
+      {/* Comments Section */}
+      <Comments postSlug={slug} />
     </article>
   );
 }

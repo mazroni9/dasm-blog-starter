@@ -13,7 +13,7 @@ export default function AboutPage() {
       {/* Hero Section */}
       <div className="text-center mb-16">
         <h1 className="text-4xl font-bold text-gray-800 mb-6">
-          عن منصة DASM-e
+          عن منصة DASM
         </h1>
         <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
           منصة رائدة في مجال المزادات الرقمية، مصممة لتوفير تجربة فريدة ومتطورة
@@ -102,7 +102,7 @@ export default function AboutPage() {
       <div className="text-center">
         <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl p-8 text-white">
           <h3 className="text-2xl font-bold mb-4">
-            انضم إلى منصة DASM-e اليوم
+            انضم إلى منصة DASM اليوم
           </h3>
           <p className="text-lg opacity-90 mb-6">
             اكتشف عالم المزادات الرقمية المتطور

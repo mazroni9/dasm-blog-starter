@@ -3,6 +3,8 @@ import { Metadata } from "next";
 import PostList, { type Post as PostListPost } from "@/app/components/PostList";
 import { getAllPosts, type Post as SourcePost } from "@/lib/posts";
 import Link from "next/link";
+import Categories from "@/app/components/Categories";
+import SearchBarWrapper from "@/app/components/SearchBarWrapper";
 
 export const metadata: Metadata = {
   title: "المدونة | DASM-e",
@@ -34,11 +36,19 @@ export default async function Page() {
       {/* Welcome Section */}
       <div className="text-center mb-12">
         <h2 className="text-3xl font-bold text-gray-800 mb-4">
-          مرحباً بكم في مدونة DASM-e
+          مرحباً بكم في مدونة DASM
         </h2>
         <p className="text-xl text-gray-600 max-w-3xl mx-auto">
           اكتشف أحدث المقالات والتحديثات حول منصتنا الرائدة في المزادات الرقمية
         </p>
+      </div>
+
+      {/* Categories */}
+      <Categories />
+
+      {/* Search Bar */}
+      <div className="mb-12">
+        <SearchBarWrapper className="max-w-2xl mx-auto" />
       </div>
 
       {/* Posts Grid */}
@@ -82,7 +92,7 @@ export default async function Page() {
       <div className="text-center mt-16">
         <div className="glass rounded-3xl p-8 max-w-2xl mx-auto">
           <h3 className="text-2xl font-bold text-gray-800 mb-4">
-            انضم إلى مجتمع DASM-e
+            انضم إلى مجتمع DASM
           </h3>
           <p className="text-gray-600 mb-6">
             احصل على آخر التحديثات والأخبار مباشرة في بريدك الإلكتروني
