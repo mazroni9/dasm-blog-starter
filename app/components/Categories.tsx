@@ -21,7 +21,7 @@ const categories: Category[] = [
     id: 'all',
     name: 'جميع المقالات',
     nameEn: 'All Posts',
-    count: 5,
+    count: 13,
     color: 'from-blue-500 to-purple-600',
     icon: '📚'
   },
@@ -37,7 +37,7 @@ const categories: Category[] = [
     id: 'tech',
     name: 'تقنية وتطوير',
     nameEn: 'Tech & Development',
-    count: 2,
+    count: 3,
     color: 'from-purple-500 to-pink-600',
     icon: '💻'
   },
@@ -45,7 +45,7 @@ const categories: Category[] = [
     id: 'guides',
     name: 'أدلة ونصائح',
     nameEn: 'Guides & Tips',
-    count: 1,
+    count: 4,
     color: 'from-orange-500 to-red-600',
     icon: '📖'
   }
