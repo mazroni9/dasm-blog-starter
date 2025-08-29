@@ -18,14 +18,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Link href="/" className="text-2xl font-bold text-gray-800">
                 DASM Blog
               </Link>
-              <div className="flex gap-8 text-gray-600">
-                <Link href="/" className="nav-link hover:text-gray-900">
-                  الرئيسية
-                </Link>
-                <Link href="/about" className="nav-link hover:text-gray-900">
-                  عن المنصة
-                </Link>
-              </div>
+                             <div className="flex gap-8 text-gray-600">
+                 <Link href="/" className="nav-link hover:text-gray-900">
+                   الرئيسية
+                 </Link>
+                 <Link href="/about" className="nav-link hover:text-gray-900">
+                   عن المنصة
+                 </Link>
+                 <Link href="/admin" className="nav-link hover:text-gray-900">
+                   لوحة التحكم
+                 </Link>
+               </div>
             </div>
           </div>
         </nav>

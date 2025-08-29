@@ -5,6 +5,7 @@ import { getAllPosts, type Post as SourcePost } from "@/lib/posts";
 import Link from "next/link";
 import Categories from "@/app/components/Categories";
 import SearchBarWrapper from "@/app/components/SearchBarWrapper";
+import NewsletterSignup from "@/app/components/NewsletterSignup";
 
 export const metadata: Metadata = {
   title: "المدونة | DASM",
@@ -90,17 +91,7 @@ export default async function Page() {
 
       {/* Call to Action */}
       <div className="text-center mt-16">
-        <div className="glass rounded-3xl p-8 max-w-2xl mx-auto">
-          <h3 className="text-2xl font-bold text-gray-800 mb-4">
-            انضم إلى مجتمع DASM
-          </h3>
-          <p className="text-gray-600 mb-6">
-            احصل على آخر التحديثات والأخبار مباشرة في بريدك الإلكتروني
-          </p>
-          <button className="read-more">
-            اشترك الآن
-          </button>
-        </div>
+        <NewsletterSignup />
       </div>
     </div>
   );
