@@ -3,7 +3,7 @@ import "./globals.css";
 import Link from "next/link";
 
 export const metadata = {
-  title: "مدونة DASM-e",
+  title: "مدونة DASM",
   description: "أخبار المنصة، التعريفات، المقالات التقنية"
 };
 
@@ -35,7 +35,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className="hero-section">
             <h1 className="hero-title">مدونة DASM</h1>
             <p className="hero-subtitle">
-              مقالات تقنية وتشغيلية حول DASM-e ومنتجاتنا الفرعية
+              مقالات تقنية وتشغيلية حول DASM ومنتجاتنا الفرعية
             </p>
           </div>
         </section>

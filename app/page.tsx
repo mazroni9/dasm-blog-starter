@@ -7,8 +7,8 @@ import Categories from "@/app/components/Categories";
 import SearchBarWrapper from "@/app/components/SearchBarWrapper";
 
 export const metadata: Metadata = {
-  title: "المدونة | DASM-e",
-  description: "مقالات تقنية وتشغيلية حول DASM-e ومنتجاتنا الفرعية.",
+  title: "المدونة | DASM",
+  description: "مقالات تقنية وتشغيلية حول DASM ومنتجاتنا الفرعية.",
 };
 
 // توحيد التاريخ إلى نص YYYY-MM-DD (أو undefined)

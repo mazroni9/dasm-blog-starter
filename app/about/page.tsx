@@ -3,8 +3,8 @@ import { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "عن المنصة | DASM-e",
-  description: "تعرف على منصة DASM-e الرائدة في المزادات الرقمية",
+  title: "عن المنصة | DASM",
+  description: "تعرف على منصة DASM الرائدة في المزادات الرقمية",
 };
 
 export default function AboutPage() {
